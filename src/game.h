@@ -12,9 +12,9 @@
 #include "global.h"
 #include "tile.h"
 
-/*
- * Create an SDL window with an OpenGL context in it.
- */
+        const int gridWidth = 4;
+        const int gridHeight = 10;
+
 class Game {
     public:
         Game();
@@ -32,7 +32,7 @@ class Game {
         SDL_Window* window;
         SDL_GLContext context;
 
-        Tile tile[10][10] = {{}};
+        Tile tile[gridWidth][gridHeight] = {{}};
 };
 
 #endif /* GAME_H_ */

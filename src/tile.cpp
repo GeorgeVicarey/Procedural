@@ -128,6 +128,10 @@ void Tile::createTile() {
     glEnableVertexAttribArray(colAttrib);
     glVertexAttribPointer(colAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat),
             (void*) (2 * sizeof(GLfloat)));
+
+
+    trans = glm::rotate(trans, 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
+    glUniformMatrix4fv(uniTrans, 1, GL_FALSE, glm::value_ptr(trans));
 }
 
 void Tile::update() {
@@ -137,13 +141,14 @@ void Tile::update() {
     uniTrans = glGetUniformLocation(shaderProgram, "model");
 
     // calculate the view matrix and pass it to the shader program
-    glm::mat4 view = glm::lookAt(glm::vec3(1.2f, 1.2f, 1.2f), glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 20.0f),   //camera pos
+                                 glm::vec3(2.0f, 2.0f, 0.0f),   //center on screen
+                                 glm::vec3(0.0f, 0.0f, 1.0f));  //up/down axis
     GLint uniView = glGetUniformLocation(shaderProgram, "view");
     glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
     // calculaet projection matrix and pass it to the shader program
-    glm::mat4 proj = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 10.0f);
+    glm::mat4 proj = glm::perspective(45.0f, 800.0f / 600.0f, 1.0f, 400.0f);
     GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
     glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 }

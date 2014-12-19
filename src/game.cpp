@@ -43,8 +43,8 @@ bool Game::objectInit() {
     glewInit();
     glEnable(GL_DEPTH_TEST);
 
-    for (int x = 0; x < 10; x++) {
-        for (int y = 0; y < 10; y++) {
+    for (int x = 0; x < gridWidth; x++) {
+        for (int y = 0; y < gridHeight; y++) {
             tile[x][y].setPos(x, y);
 
             if ((x % 2 == 0 && y % 2 == 0) || (x % 2 == 1 && y % 2 == 1)) {
