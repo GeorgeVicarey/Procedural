@@ -30,12 +30,6 @@ int main(int argc, char *argv[]) {
         std::cout << "window" << std::endl;
     }
 
-    // create openGL context
-    if (game->createContext()) {
-        // context created
-        std::cout << "context" << std::endl;
-    }
-
     if (game->objectInit()) {
         std::cout << "objects" << std::endl;
     }

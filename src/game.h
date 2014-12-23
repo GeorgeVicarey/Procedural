@@ -10,7 +10,6 @@
 
 #define GLEW_STATIC
 #include "global.h"
-#include "tile.h"
 
         const int gridWidth = 4;
         const int gridHeight = 10;
@@ -22,7 +21,6 @@ class Game {
         bool init();
         bool objectInit();
         bool createWindow(const char*, int, int);
-        bool createContext();
         bool handleEvents(SDL_Event);
         bool update();
         bool render();
@@ -30,9 +28,8 @@ class Game {
 
     private:
         SDL_Window* window;
-        SDL_GLContext context;
-
-        Tile tile[gridWidth][gridHeight] = {{}};
+        SDL_Surface* screenSurface;
+        SDL_Surface* mapSurface;
 };
 
 #endif /* GAME_H_ */

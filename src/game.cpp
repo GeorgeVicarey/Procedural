@@ -7,15 +7,26 @@
 
 #include "game.h"
 #include <iostream>
-#include "tile.h"
+#include "stdio.h"
+
+int8_t pixels[3*3*3] = {
+        255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255, 255, 255
+};
 
 Game::Game() {
     window = NULL;
-    context = NULL;
+    screenSurface = NULL;
+    mapSurface = NULL;
 }
 
 Game::~Game() {
-    SDL_GL_DeleteContext(context);
+    SDL_FreeSurface(screenSurface);
+    SDL_FreeSurface(mapSurface);
+
+    SDL_DestroyWindow(window);
+
     SDL_Quit();
 }
 
@@ -25,37 +36,20 @@ Game::~Game() {
 bool Game::init() {
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-
     return true;
 }
 
 /**
- * Initialise GLEW and then
  * initialise any game entities.
  */
 bool Game::objectInit() {
-    glewExperimental = TRUE;
 
-    glewInit();
-    glEnable(GL_DEPTH_TEST);
+    mapSurface = SDL_CreateRGBSurfaceFrom(&pixels, 3, 3, 8*3, 9, 0x0000FF, 0x00FF00, 0xFF0000, 0);
+    if( mapSurface == NULL )
+        {
+            printf( "Unable to load image! SDL Error: %s\n", SDL_GetError() );
 
-    for (int x = 0; x < gridWidth; x++) {
-        for (int y = 0; y < gridHeight; y++) {
-            tile[x][y].setPos(x, y);
-
-            if ((x % 2 == 0 && y % 2 == 0) || (x % 2 == 1 && y % 2 == 1)) {
-                tile[x][y].setType(Tile::Type::Green);
-            } else {
-                tile[x][y].setType(Tile::Type::Red);
-            }
-
-            tile[x][y].createTile();
         }
-    }
 
     return true;
 }
@@ -65,21 +59,10 @@ bool Game::objectInit() {
  */
 bool Game::createWindow(const char* title, int width, int height) {
     // create SDL window
-    window = SDL_CreateWindow(title, 100, 100, width, height, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow(title, 100, 100, width, height, SDL_WINDOW_SHOWN);
 
     if (window == NULL) return false;
-
-    return true;
-}
-
-/**
- * Create an OpenGL context then bind it to the window.
- */
-bool Game::createContext() {
-    // create opengl context and assign it to window
-    context = SDL_GL_CreateContext(window);
-
-    if (context == NULL) return false;
+    else screenSurface = SDL_GetWindowSurface(window);
 
     return true;
 }
@@ -96,11 +79,6 @@ bool Game::handleEvents(SDL_Event e) {
  * Games update method.
  */
 bool Game::update() {
-    for (int x = 0; x < 5; x++) {
-        for (int y = 0; y < 5; y++) {
-            tile[x][y].update();
-        }
-    }
 
     return true;
 }
@@ -110,15 +88,10 @@ bool Game::update() {
  * Games render method.
  */
 bool Game::render() {
-    // Clear the screen to black
-    glClearColor(0.2f, 0.4f, 0.6f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
-                tile[x][y].draw();
-            }
-        }
+    SDL_BlitSurface(mapSurface, NULL, screenSurface, NULL);
+
+    SDL_UpdateWindowSurface(window);
 
     return true;
 }
