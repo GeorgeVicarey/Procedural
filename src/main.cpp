@@ -12,7 +12,7 @@
 
 int width = 800;
 int height = 600;
-const char* title = "OpenGL Test";
+const char* title = "Procedural Content Testing";
 
 int main(int argc, char *argv[]) {
     // create an instance of game

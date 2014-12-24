@@ -10,6 +10,7 @@
 
 #define GLEW_STATIC
 #include "global.h"
+#include "map.h"
 
         const int gridWidth = 4;
         const int gridHeight = 10;
@@ -30,6 +31,7 @@ class Game {
         SDL_Window* window;
         SDL_Surface* screenSurface;
         SDL_Surface* mapSurface;
+        Map * map;
 };
 
 #endif /* GAME_H_ */

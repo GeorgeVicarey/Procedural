@@ -9,16 +9,11 @@
 #include <iostream>
 #include "stdio.h"
 
-int8_t pixels[3*3*3] = {
-        255, 255, 255, 255, 255, 255, 255, 255, 255,
-        255, 255, 255, 255, 255, 255, 255, 255, 255,
-        255, 255, 255, 255, 255, 255, 255, 255, 255
-};
-
 Game::Game() {
     window = NULL;
     screenSurface = NULL;
     mapSurface = NULL;
+    map = new Map();
 }
 
 Game::~Game() {
@@ -44,12 +39,14 @@ bool Game::init() {
  */
 bool Game::objectInit() {
 
-    mapSurface = SDL_CreateRGBSurfaceFrom(&pixels, 3, 3, 8*3, 9, 0x0000FF, 0x00FF00, 0xFF0000, 0);
+    mapSurface = map->getSurface();
     if( mapSurface == NULL )
         {
             printf( "Unable to load image! SDL Error: %s\n", SDL_GetError() );
 
         }
+    map->makeImage();
+    std::cout << "image made" << std::endl;
 
     return true;
 }
