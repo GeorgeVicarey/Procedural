@@ -17,6 +17,11 @@ class Map {
         void populateArray();
         void makeImage();
         SDL_Surface* getSurface();
+
+        // returns pixel array (the map data)
+        int8_t* getMap() {return pixels;};
+    private:
+        int8_t pixels[800 * 600 * 3] = {};
 };
 
 #endif /* SRC_MAP_H_ */

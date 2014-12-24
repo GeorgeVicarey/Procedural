@@ -13,8 +13,6 @@
 #include <string>
 #include <bitset>
 
-int8_t pixels[800 * 600 * 3] = {};
-
 Map::Map() {
     populateArray();
 }
@@ -51,10 +49,34 @@ void Map::makeImage() {
 
 void Map::populateArray() {
     for (int i = 0; i < 800 * 600 * 3; i += 3) {
-        int y = rand() % 255;
-        int r = y;
-        int g = y;
-        int b = y;
+        int y = rand() % 100;
+        int x = y;
+
+        if (y < 10) {
+            x = (255/10)*1;
+        } else if (y < 20) {
+            x = (255/10)*2;
+        } else if (y < 30) {
+            x = (255/10)*3;
+        } else if (y < 40) {
+            x = (255/10)*4;
+        } else if (y < 50) {
+            x = (255/10)*5;
+        } else if (y < 60) {
+            x = (255/10)*6;
+        } else if (y < 70) {
+            x = (255/10)*7;
+        } else if (y < 80) {
+            x = (255/10)*8;
+        } else if (y < 90) {
+            x = (255/10)*9;
+        } else if (y < 100) {
+            x = (255/10)*10;
+        }
+
+        int r = x;
+        int g = x;
+        int b = x;
 
         pixels[i] = r;
         pixels[i + 1] = g;
