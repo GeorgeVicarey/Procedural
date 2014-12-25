@@ -19,9 +19,9 @@ class Map {
         SDL_Surface* getSurface();
 
         // returns pixel array (the map data)
-        int8_t* getMap() {return pixels;};
+        //signed char*[2400] getMap() {return pixels;};
     private:
-        int8_t pixels[800 * 600 * 3] = {};
+        int8_t pixels[600][800 * 3] = {};
 };
 
 #endif /* SRC_MAP_H_ */
