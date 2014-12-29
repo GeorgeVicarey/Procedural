@@ -17,6 +17,16 @@ float Noise::getNoise(int x, int y) {
     return noise[x][y];
 }
 
+//function SmoothNoise_2D(x>, y)
+//
+//  corners = ( Noise(x-1, y-1)+Noise(x+1, y-1)+Noise(x-1, y+1)+Noise(x+1, y+1) ) / 16
+//  sides   = ( Noise(x-1, y)  +Noise(x+1, y)  +Noise(x, y-1)  +Noise(x, y+1) ) /  8
+//  center  =  Noise(x, y) / 4
+//
+//  return corners + sides + center
+//
+//
+//end function
 
 double Noise::smoothNoise(double x, double y)
 {

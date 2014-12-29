@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * noise.h
+=======
+ * perlin.h
+>>>>>>> d54c047c49ef5a52063b0ba6e27900397db5969c
  *
  *  Created on: 15 Dec 2014
  *      Author: George

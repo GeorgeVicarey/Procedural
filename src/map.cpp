@@ -14,6 +14,7 @@
 #include <string>
 #include <bitset>
 
+
 int8_t pixels[800][600 * 3] = {};
 
 Noise noise;

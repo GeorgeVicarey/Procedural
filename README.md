@@ -2,5 +2,7 @@
 
 ##Prerequisites
 - SDL2
-- OpenGL
-- GLEW
+ 
+###License
+
+&copy; 2014 - George Vicarey
